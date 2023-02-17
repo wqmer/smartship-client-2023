@@ -17,7 +17,9 @@ class UserLogin extends Component {
         return (
             <div className='login'>
                 <Spin size="large" spinning ={isFetching}>
-                    {this.props.user_info.user_id ? <Logined history={this.props.history} user_info={this.props.user_info} />
+                    {this.props.user_info.user_id ?
+                    this.props.history.push('/user/create/single_order')
+                    // <Logined history={this.props.history} user_info={this.props.user_info} />
                         : <Login login={(data) => login(data)}
                         />}
                 </Spin>

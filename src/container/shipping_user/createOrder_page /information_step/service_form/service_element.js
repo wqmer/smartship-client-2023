@@ -142,10 +142,10 @@ class My_service_card extends React.Component {
             style={
               this.props.check
                 ? {
-                    transform: "scale(1.11)",
-                    ...origin_style,
-                    boxShadow: "rgb(204, 204, 204) 0px 0px 9px",
-                  }
+                  transform: "scale(1.11)",
+                  ...origin_style,
+                  boxShadow: "rgb(204, 204, 204) 0px 0px 9px",
+                }
                 : this.state.style
             }
             extra={loading ? undefined : tag}
@@ -178,20 +178,22 @@ class My_service_card extends React.Component {
           >
             <Meta
               title={
-                <span style={{ paddingLeft: "15%" }}>
-                  <Avatar
-                    style={{ marginTop: 4 }}
-                    shape="square"
-                    size={56}
-                    src={image_src}
-                  />
-                  <span style={{ fontSize: 14, marginLeft: 16 }}>
-                    {service_name}
-                  </span>
+                <span style={{ paddingLeft: "10%", paddingRight: "10%" }}>
+                  <Space size={15}>
+                    <Avatar
+                      style={{ marginTop: 4 }}
+                      shape="square"
+                      size={48}
+                      src={image_src}
+                    />
+                    <span style={{ fontSize: 14 }}>
+                      {service_name}
+                    </span>
+                  </Space>
                 </span>
               }
               description={
-                <Row justify="space-between" align="middle">
+                <Row justify="space-between" align="middle" style={{ paddingLeft: "2%", paddingRight: "2%" }}>
                   <Col style={{ fontSize: 9 }}>
                     <Space>
                       {agent == "Smartship" ? (

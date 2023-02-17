@@ -93,7 +93,7 @@ const submenus = [
     key: "order_log",
     url: "/order_log",
     children: [
-      { url: "/ready_to_ship", iconType: "pushpin", name: "待处理" },
+      // { url: "/ready_to_ship", iconType: "pushpin", name: "待处理" },
       { url: "/completed", iconType: "carry-out", name: "已完成" },
       { iconType: "exclamation-circle", url: "/problem", name: "问题单" },
     ],

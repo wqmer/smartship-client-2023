@@ -46,6 +46,7 @@ import ShortUniqueId from "short-unique-id";
 import LinkToModal from "../components/LinkToModal";
 import LinkToDrawer from "../components/LinkToDrawer";
 import OrderDetail from "../container/shipping_user/order_page/OrderDetailPage";
+import { isArray } from "lodash";
 {
   /* <FilePdfFilled />
 <MinusCircleTwoTone /> */
@@ -633,7 +634,7 @@ const mapRouterToComponent = (Ref) => [
           },
           {
             title: "服务",
-            width: 225,
+            width: 250,
             dataIndex: ["service", "asset", "logo_url"],
             align: "left",
             key: "carrier_type",
@@ -657,38 +658,53 @@ const mapRouterToComponent = (Ref) => [
             shouldCellUpdate: (record, prevRecord) => false,
           },
 
+          // {
+          //   title: "文件",
+          //   width: width_colum.medium,
+          //   dataIndex: ["parcel", "parcelList"],
+          //   align: "left",
+          //   key: "file",
+          //   shouldCellUpdate: (record, prevRecord) => false,
+          //   render: (parcelList, record, index) => {
+          //     return (
+          //       <Space size={2}>
+          //         <PdfIcon
+          //           // twoToneColor="#096dd9"
+          //           // twoToneColor="#f5222d"
+          //           // twoToneColor="#d9d9d9" 不可用
+          //           onClick={() => {
+          //             let bath_id =
+          //               uid.randomUUID(6) + parcelList[0].tracking_numbers[0];
+          //             localStorage.setItem(
+          //               bath_id,
+          //               JSON.stringify({
+          //                 urls: parcelList.map((item) => item.label[0]),
+          //               })
+          //             );
+          //             const win = window.open(`/label/${bath_id}`, "_blank");
+          //             win.focus();
+          //           }}
+          //         // style={{ fontSize: "16px", color: "#1890ff" }}
+          //         />
+          //         {/* <Divider type="vertical" />
+          //         <FileImageTwoTone style={{ fontSize: "15px" }} /> */}
+          //       </Space>
+          //     );
+          //   },
+          // },
           {
-            title: "文件",
+            title: "状态",
             width: width_colum.medium,
             dataIndex: ["parcel", "parcelList"],
             align: "left",
             key: "file",
             shouldCellUpdate: (record, prevRecord) => false,
             render: (parcelList, record, index) => {
-              return (
-                <Space size={2}>
-                  <PdfIcon
-                    // twoToneColor="#096dd9"
-                    // twoToneColor="#f5222d"
-                    // twoToneColor="#d9d9d9" 不可用
-                    onClick={() => {
-                      let bath_id =
-                        uid.randomUUID(6) + parcelList[0].tracking_numbers[0];
-                      localStorage.setItem(
-                        bath_id,
-                        JSON.stringify({
-                          urls: parcelList.map((item) => item.label[0]),
-                        })
-                      );
-                      const win = window.open(`/label/${bath_id}`, "_blank");
-                      win.focus();
-                    }}
-                    // style={{ fontSize: "16px", color: "#1890ff" }}
-                  />
-                  {/* <Divider type="vertical" />
-                  <FileImageTwoTone style={{ fontSize: "15px" }} /> */}
-                </Space>
-              );
+              const TS = { 'created': <Badge color ={'blue'} text="已创建" />, 'in tranist': <Badge status="processing" text="运输中"/>, 'delivered': <Badge status="success" text="已妥投"/> }
+              if (!Array.isArray(parcelList)) parcelList = []
+              let tracking_status = parcelList[0].tracking_status
+              return tracking_status ? TS[`${tracking_status}`]
+                : <Badge color ={'blue'} text="已创建" />
             },
           },
           {
@@ -781,15 +797,15 @@ const mapRouterToComponent = (Ref) => [
             },
             poperty: { placeholder: ["开始时间", "结束时间"] },
           },
-          {
-            component: "select_tag",
-            tag: "用户名",
-            value: { test: undefined },
-            api_request_payload: function (start = undefined, end = undefined) {
-              return { created_at: { $gte: start, $lte: end } };
-            },
-            poperty: { placeholder: "用户名，可多选" },
-          },
+          // {
+          //   component: "select_tag",
+          //   tag: "用户名",
+          //   value: { test: undefined },
+          //   api_request_payload: function (start = undefined, end = undefined) {
+          //     return { created_at: { $gte: start, $lte: end } };
+          //   },
+          //   poperty: { placeholder: "用户名，可多选" },
+          // },
           {
             component: "search_bar",
             tag: "自定义搜索",
@@ -799,15 +815,15 @@ const mapRouterToComponent = (Ref) => [
             },
             poperty: { placeholder: "搜索任意。。" },
           },
-          {
-            component: "select_tag",
-            tag: "发件地址",
-            value: { test: undefined },
-            api_request_payload: function (start = undefined, end = undefined) {
-              return { created_at: { $gte: start, $lte: end } };
-            },
-            poperty: { placeholder: "发件地址，可多选" },
-          },
+          // {
+          //   component: "select_tag",
+          //   tag: "发件地址",
+          //   value: { test: undefined },
+          //   api_request_payload: function (start = undefined, end = undefined) {
+          //     return { created_at: { $gte: start, $lte: end } };
+          //   },
+          //   poperty: { placeholder: "发件地址，可多选" },
+          // },
 
           // { component: 'select_tag', tag: '发货渠道', poperty: { placeholder: "选择渠道，可多选" } },
           // { component: 'select_tag', tag: '渠道', poperty : { placeholder: '' } }
